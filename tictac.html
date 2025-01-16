@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .div {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 80vh;
+            background-color: #548687;
+        }
+
+        .game {
+            width: 350px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            /* border: 2px solid red; */
+            justify-content: center;
+        }
+       
+
+        .box {
+            width: 112px;
+            height: 112px;
+            border: none ;
+            text-align: center;
+            font-size: 60px;
+            border-radius: 15px;
+            margin: 2px;
+            background-color: #ffffc7;
+            color: black;
+            cursor: cell;
+            box-shadow: 7px 11px 5px black;
+
+             
+        }
+        .name{
+            width: 100%;
+            height: 22px;
+            color: aquamarine;
+            background-color: #548687;
+            text-align: center;
+            font-size: 30px;
+            padding-top: 15px;
+        }
+        .win{
+            width: 100%;
+            height: 30px;
+            color: black;
+            background-color: #548687;
+            text-align: center;
+            font-size: 30px;
+            padding-top: 25px;
+        }
+        #new{
+            background-color: rgb(15, 15, 15);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            width: 150px;
+            height: 30px;
+            cursor: pointer;
+            box-shadow: 2px 5px 5px rgb(194, 191, 191);
+        }
+        #turn{
+            color: white;
+            font-weight: bolder;
+            
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="win">
+        <h3 id="msg"></h1>
+    </div>
+    <h3 class="name"> <b>Tic Tac Toe Game In JavaScript</b> </h3>
+    <h5 class="name"><i id="turn"></i></h3>
+    <h3 class="name"> 
+        <button id="new" >New Game</button>
+    </h3>
+    <div class="div">
+        <div class="game">
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+            <button class="box"></button>
+
+        </div>
+    </div>
+</body>
+
+</html>
+<script>
+
+    let winPatern = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 4, 8],
+        [1, 4, 7],
+        [2, 4, 6],
+        [0, 3, 6],
+        [2, 5, 8]
+    ]
+
+
+    let tarnO = true
+    turn.innerText = "TURN OF O"
+    boxes = document.querySelectorAll(".box")
+    msg= document.getElementById("msg")
+    newbutton = document.getElementById("new")
+    turn = document.getElementById("turn")
+
+    boxes.forEach((box) => {
+        box.addEventListener("click", () => {
+            console.log("click button")
+
+            if (tarnO) {
+                box.innerText = "O"
+                tarnO = !tarnO
+                turn.innerText = "TURN OF X"
+            }
+            else {
+                box.innerText = "X"
+                tarnO = !tarnO
+                turn.innerText = "TURN OF O"
+            }
+            box.disabled = true
+            chackWin()
+        })
+    });
+
+ 
+       const disablebox = ()=>{
+        for(box of boxes){
+            box.disabled = true
+        }
+       }
+       
+       
+
+    const showwinn = (winner)=>{
+        msg.innerText = `Congratulation , Winner is ${winner} ! `
+         turn.innerText = "____________"
+        disablebox()
+    }
+
+
+
+
+    const chackWin = () => {
+        for (patern of winPatern) {
+            console.log(patern[0], patern[1], patern[2])
+            console.log(boxes[patern[0]].innerText, boxes[patern[1]].innerText, boxes[patern[2]].innerText)
+            let pos1 = boxes[patern[0]].innerText
+            let pos2 = boxes[patern[1]].innerText
+            let pos3 = boxes[patern[2]].innerText
+            if(pos1!="" && pos2!="" && pos3!=""){
+
+                if(pos1==pos2 && pos2==pos3){
+                    console.log("wiinnnn" , pos1)
+                    boxes[patern[0]].style.color="red"
+                    boxes[patern[0]].style.backgroundColor = "blue";
+                    boxes[patern[1]].style.color="red"
+                    boxes[patern[1]].style.backgroundColor = "blue";
+                    boxes[patern[2]].style.color="red"
+                    boxes[patern[2]].style.backgroundColor = "blue";
+                    showwinn(pos1)
+                }
+            }
+        }
+    }
+
+
+    const newGame = ()=>{
+        tarnO=true
+        turn.innerText = "TURN OF O"
+        enablebox()
+        msg.innerText=""
+
+        boxes.forEach((e)=>{
+            e.style.color="black"
+            e.style.backgroundColor="white"
+        })
+                   
+
+
+    }
+
+    const enablebox = ()=>{
+        for(box of boxes){
+            box.disabled = false
+            box.innerText=""
+        }
+       }
+       newbutton.addEventListener("click" ,newGame )
+</script>
