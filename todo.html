@@ -1,0 +1,55 @@
+ <!-- calculator 
+ roke paper
+ tic tac teo
+ to do list 
+ crat from
+ scaner create 
+ signup login  -->
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todolist</title>
+ </head>
+ <body>
+    
+    <input type="text" name="" class="input"  placeholder="write">
+    <button class="button">click</button>
+
+    <ul class="ulist">
+    
+    </ul>
+ </body>
+ </html>
+
+
+ <script>
+    input = document.querySelector(".input")
+    ulist = document.querySelector(".ulist")
+    button = document.querySelector(".button")
+
+    button.addEventListener("click" , ()=>{
+
+
+        if(input.value==""){
+            alert("kuch likho ")
+        }
+   else{
+
+       ulist.innerHTML+= `<li>${input.value}</li>`
+       console.log("ravi")
+       localStorage.setItem("data" ,ulist.innerHTML )
+   }
+   input.value = ""
+    })
+
+
+
+function showdata(){
+
+   ulist.innerHTML= localStorage.getItem("data")
+}
+showdata()
+ </script>
