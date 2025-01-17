@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .count{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .game{
+            text-align: center;
+            font-size: 40px;
+        }
+        .button{
+            width: 120px;
+            height: 50px;
+            background-color: rgb(87, 87, 109);
+            border-radius: 10px;
+            font-size: 30px;
+            color: white;
+            box-shadow: 7px 11px 5px black;
+            cursor:pointer;
+        }
+        body{
+            background-color: aqua;
+        }
+        .newgame{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100px;
+        }
+        .newgame>button{
+            background-color: black;
+            color: white;
+            font-size: 20px;
+            border-radius: 20px;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .win{
+            color: chocolate;
+        }
+    </style>
+</head>
+<body>
+    <div class="game">
+    <button class="button">rock</button>
+    <button class="button">paper</button>
+    <button class="button">siser</button>
+    <h3>UserTurn - <samp class="user">_____</samp></h3>
+    <h3>ComTurn - <samp class="com">_____</samp></h3>
+    <h3><b><i class="win">Start Game</i></b></h1>
+</div>
+    <div class="count">
+        <h1>user(you) - <span class="usercounter">0</span></h1>
+        <h1>||</h1>
+        <h1>computer - <span class="comcounter">0</span></h1>
+    </div>
+    <div class="newgame">
+    <button class="newbutton">NEW-GAME</button>
+</div>
+</body>
+</html>
+<script>
+    userCount=0
+    comCount=0
+    buttons = document.querySelectorAll(".button")
+    user = document.querySelector(".user")
+    com = document.querySelector(".com")
+    win = document.querySelector(".win")
+    newbutton = document.querySelector(".newbutton")
+    userCounter = document.querySelector(".usercounter")
+    comCounter = document.querySelector(".comcounter")
+  
+
+    buttons.forEach((e) => {
+        e.addEventListener("click" , ()=>{
+            userTurn = e.innerHTML
+            console.log(userTurn)
+            user.innerHTML=userTurn
+            comf()
+          
+        })
+    });
+    const comf = ()=>{
+        number  = Math.floor(Math.random()*3+1)
+        console.log(number)
+        if(number==1){
+          com.innerHTML="rock"  
+        }
+        if(number==2){
+          com.innerHTML="paper"  
+        }
+        if(number==3){
+          com.innerHTML="siser"  
+        }
+
+        setTimeout(() => {
+            matchf()
+            console.log( "ravi",userCount)
+            userCounter.innerHTML=userCount
+            comCounter.innerHTML=comCount
+
+             }, 1000);
+        win.innerHTML= "------------"
+    }
+
+    const matchf = ()=>{
+      if(com.innerHTML=="rock" &&  user.innerHTML=="paper" || com.innerHTML=="paper" &&  user.innerHTML=="siser" || com.innerHTML=="siser" &&  user.innerHTML=="rock"    ) {
+        win.innerHTML= "user winner !"
+        userCount++
+      } 
+      else if(com.innerHTML=="paper" &&  user.innerHTML=="rock" || com.innerHTML=="siser" &&  user.innerHTML=="paper" || com.innerHTML=="rock" &&  user.innerHTML=="siser"    ) {
+        win.innerHTML= "computer winner !"
+        comCount++
+      } 
+      else{
+         win.innerHTML= "DRAW !"
+      }
+    }
+
+    newbutton.addEventListener("click" , ()=>{
+        userCount=0
+        comCount=0
+        win.innerHTML="Start Game" 
+        userCounter.innerHTML=userCount
+        comCounter.innerHTML=comCount
+        user.innerHTML="_____"
+        com.innerHTML="_____" 
+    })
+    
+</script>
